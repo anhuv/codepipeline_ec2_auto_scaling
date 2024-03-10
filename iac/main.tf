@@ -146,6 +146,29 @@ resource "aws_security_group" "asg_security_group" {
 }
 
 # Launch Template and ASG Resources
+resource "aws_iam_role" "codedeploy" {
+  name = "CodeDeploy-EC2-Role"
+
+  assume_role_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "ec2.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  }
+  EOF
+}
+
+resource "aws_iam_role_policy_attachment" "codedeploy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
+  role       = aws_iam_role.codedeploy.name
+}
 
 resource "aws_launch_template" "launch_template" {
   name          = local.launch_template_name
@@ -155,6 +178,9 @@ resource "aws_launch_template" "launch_template" {
   network_interfaces {
     device_index    = 0
     security_groups = [aws_security_group.asg_security_group.id]
+  }
+  iam_instance_profile {
+    name = aws_iam_role.codedeploy.name
   }
   tag_specifications {
     resource_type = "instance"
