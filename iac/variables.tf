@@ -23,7 +23,7 @@ locals {
 variable "vpc_cidr" {
   description = "VPC cidr block"
   type        = string
-  default     = "10.19.0.0/16"
+  default     = "10.1.0.0/16"
 }
 
 variable "az_names" {
