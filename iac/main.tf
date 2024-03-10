@@ -179,7 +179,7 @@ resource "aws_launch_template" "launch_template" {
     security_groups = [aws_security_group.asg_security_group.id]
   }
   iam_instance_profile {
-    name = aws_iam_role.codedeploy.name
+    name = local.iam_role_codedeploy_name
   }
   tag_specifications {
     resource_type = "instance"
