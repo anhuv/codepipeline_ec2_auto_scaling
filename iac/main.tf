@@ -149,10 +149,9 @@ resource "aws_security_group" "asg_security_group" {
 resource "aws_iam_role" "codedeploy" {
   name = "CodeDeploy-EC2-Role"
 
-  assume_role_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
       {
         "Effect": "Allow",
         "Principal": {
@@ -161,8 +160,8 @@ resource "aws_iam_role" "codedeploy" {
         "Action": "sts:AssumeRole"
       }
     ]
-  }
-  EOF
+  })
+
 }
 
 resource "aws_iam_role_policy_attachment" "codedeploy" {
