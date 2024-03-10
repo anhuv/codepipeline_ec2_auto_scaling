@@ -147,7 +147,7 @@ resource "aws_security_group" "asg_security_group" {
 
 # Launch Template and ASG Resources
 resource "aws_iam_role" "codedeploy" {
-  name = "CodeDeploy-EC2-Role"
+  name = local.iam_role_codedeploy_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

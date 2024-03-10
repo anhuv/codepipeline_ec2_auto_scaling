@@ -16,6 +16,7 @@ locals {
   launch_template_ec2_name = "anhuv-asg-ec2"
   alb_name                 = "anhuv-external-alb"
   target_group_name        = "anhuv-alb-target-group"
+  iam_role_codedeploy_name = "anhuv-codedeploy-ec2-role"
 }
 
 # VPC Variables
